@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@nukta-solutions/ui/styles.css";
+
+/* Stories import components from source, so scan the ui package source and the docs stories. */
+@source "../../../packages/ui/src";
+@source "../stories";

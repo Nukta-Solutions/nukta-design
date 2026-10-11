@@ -1,0 +1,42 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Nukta UI
+
+The design system for every Nukta Solutions product: semantic design tokens plus accessible React
+components built on Radix UI and Tailwind CSS v4.
+
+| Package                   | What it is                                                         |
+| ------------------------- | ------------------------------------------------------------------ |
+| `@nukta-solutions/tokens` | Semantic tokens as CSS variables, a Tailwind v4 `@theme`, and JSON |
+| `@nukta-solutions/ui`     | React components that use tokens only                              |
+| `@nukta-solutions/config` | Shared TypeScript, ESLint and Prettier config                      |
+
+## Using it in an app
+
+```bash
+pnpm add @nukta-solutions/ui
+```
+
+```css
+/* app/globals.css */
+@import "tailwindcss";
+@import "@nukta-solutions/ui/styles.css";
+@source "../node_modules/@nukta-solutions/ui/dist";
+```
+
+```tsx
+// app/layout.tsx
+import "@nukta-solutions/ui/fonts.css";
+import "./globals.css";
+```
+
+## Rules
+
+- **Tokens only.** Use semantic utilities such as `bg-primary`, `text-muted-foreground` and
+  `border-border`. Tailwind's default palette is turned off on purpose.
+- **Accessible by default.** Every component works with the keyboard and has the correct ARIA
+  roles. Check the _Accessibility_ panel on each story.
+- **Dark mode** follows the OS. Add `.dark` or `.light` to `<html>` to force a mode. Use the
+  theme switcher in the toolbar to preview both.

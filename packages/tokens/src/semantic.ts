@@ -67,7 +67,7 @@ export const semanticColors: Record<ColorMode, SemanticColorMap> = {
     overlay: "navy.950",
   },
   dark: {
-    background: "navy.950",
+    background: "neutral.950",
     foreground: "neutral.50",
     surface: "neutral.900",
     "surface-foreground": "neutral.50",
@@ -117,6 +117,9 @@ export const contrastPairs: ReadonlyArray<readonly [fg: SemanticColor, bg: Seman
   ["primary", "background"],
   ["primary", "surface"],
   ["danger", "surface"],
+  ["foreground", "muted"],
+  ["accent", "background"],
+  ["accent", "surface"],
 ];
 
 /** Non-text UI pairs (focus rings, input borders) that must meet WCAG 1.4.11 (3:1). */
