@@ -1,0 +1,51 @@
+/*
+ * @nukta-solutions/ui styles.
+ *
+ * Import AFTER Tailwind in your app's global stylesheet:
+ *   @import "tailwindcss";
+ *   @import "@nukta-solutions/ui/styles.css";
+ *   @source "../node_modules/@nukta-solutions/ui/dist";
+ */
+@import "@nukta-solutions/tokens/theme.css";
+@import "tw-animate-css";
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklch, var(--color-accent) 25%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

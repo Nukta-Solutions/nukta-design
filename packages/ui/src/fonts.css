@@ -1,0 +1,16 @@
+/*
+ * Nukta brand fonts: Inter (UI/body) and Clash Display (headings).
+ * Import once from your root layout:  import "@nukta-solutions/ui/fonts.css";
+ *
+ * Clash Display © Indian Type Foundry, ITF Free Font License — internal Nukta use only,
+ * do not redistribute outside the organization. See fonts/ClashDisplay-LICENSE.txt.
+ */
+@import "@fontsource-variable/inter";
+
+@font-face {
+  font-family: "Clash Display";
+  src: url("./fonts/ClashDisplay-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
