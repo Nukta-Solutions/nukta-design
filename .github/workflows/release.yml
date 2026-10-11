@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Version or publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: "@nukta-solutions"
+
+      - run: pnpm install --frozen-lockfile
+
+      # With pending changesets: opens/updates the "Version Packages" PR.
+      # After that PR is merged: builds and publishes changed packages to GitHub Packages.
+      - id: changesets
+        uses: changesets/action@v2
+        with:
+          version-script: pnpm version-packages
+          publish-script: pnpm release
+          commit-message: "chore(release): version packages"
+          pr-title: "chore(release): version packages"
+          create-github-releases: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sync-starter:
+    name: Sync starter template repo
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      # Fine-grained PAT with contents:write on Nukta-Solutions/nukta-starter.
+      STARTER_REPO_TOKEN: ${{ secrets.STARTER_REPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Skip when no token is configured
+        if: env.STARTER_REPO_TOKEN == ''
+        run: echo "::notice::STARTER_REPO_TOKEN is not set; skipping starter sync."
+
+      - uses: actions/checkout@v7
+        if: env.STARTER_REPO_TOKEN != ''
+        with:
+          repository: Nukta-Solutions/nukta-starter
+          token: ${{ env.STARTER_REPO_TOKEN }}
+          path: nukta-starter
+
+      - name: Export and push
+        if: env.STARTER_REPO_TOKEN != ''
+        run: |
+          node scripts/export-starter.mjs nukta-starter
+          cd nukta-starter
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: sync starter from nukta-design@${GITHUB_SHA::7}"
+          git push
