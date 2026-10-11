@@ -1,0 +1,51 @@
+{
+  "name": "@nukta-solutions/tokens",
+  "version": "0.0.0",
+  "description": "Nukta design tokens: semantic CSS variables, Tailwind v4 theme and JSON",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nukta-Solutions/nukta-design.git",
+    "directory": "packages/tokens"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./theme.css": "./dist/theme.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup && tsx scripts/build.ts",
+    "dev": "tsup --watch --onSuccess \"tsx scripts/build.ts\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@nukta-solutions/config": "workspace:*",
+    "@types/node": "^22.20.5",
+    "culori": "^4.0.2",
+    "@types/culori": "^4.0.0",
+    "eslint": "^9.39.5",
+    "tsup": "^8.5.1",
+    "tsx": "^4.20.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
+  }
+}
