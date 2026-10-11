@@ -1,0 +1,12 @@
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Skeleton } from "./skeleton";
+
+describe("Skeleton", () => {
+  it("is decorative and animated", () => {
+    const { container } = render(<Skeleton className="h-4 w-32" />);
+    const el = container.firstElementChild;
+    expect(el).toHaveAttribute("aria-hidden", "true");
+    expect(el).toHaveClass("animate-pulse", "h-4", "w-32");
+  });
+});
