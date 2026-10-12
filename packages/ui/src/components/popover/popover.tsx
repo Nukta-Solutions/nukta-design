@@ -1,0 +1,48 @@
+import { Popover as PopoverPrimitive } from "radix-ui";
+import type * as React from "react";
+import { cn } from "../../lib/cn";
+
+/** Floating panel anchored to a trigger, for rich content such as forms or pickers. */
+export function Popover(props: React.ComponentProps<typeof PopoverPrimitive.Root>) {
+  return <PopoverPrimitive.Root data-slot="popover" {...props} />;
+}
+
+export function PopoverTrigger(props: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
+}
+
+/** Positions the popover against an element other than the trigger. */
+export function PopoverAnchor(props: React.ComponentProps<typeof PopoverPrimitive.Anchor>) {
+  return <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />;
+}
+
+export function PopoverClose(props: React.ComponentProps<typeof PopoverPrimitive.Close>) {
+  return <PopoverPrimitive.Close data-slot="popover-close" {...props} />;
+}
+
+export function PopoverContent({
+  className,
+  side = "bottom",
+  align = "center",
+  sideOffset = 4,
+  ...props
+}: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+  return (
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        data-slot="popover-content"
+        side={side}
+        align={align}
+        sideOffset={sideOffset}
+        className={cn(
+          "bg-surface text-surface-foreground z-(--z-popover) w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-none",
+          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+          "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+          className,
+        )}
+        {...props}
+      />
+    </PopoverPrimitive.Portal>
+  );
+}
