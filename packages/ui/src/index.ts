@@ -1,5 +1,6 @@
 export { cn } from "./lib/cn";
 
+export * from "./components/alert";
 export * from "./components/app-shell";
 export * from "./components/avatar";
 export * from "./components/badge";
