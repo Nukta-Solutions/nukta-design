@@ -11,6 +11,7 @@ export * from "./components/checkbox";
 export * from "./components/date-picker";
 export * from "./components/dialog";
 export * from "./components/dropdown-menu";
+export * from "./components/empty-state";
 export * from "./components/field";
 export * from "./components/input";
 export * from "./components/input-group";
