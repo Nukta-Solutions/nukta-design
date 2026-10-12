@@ -33,6 +33,7 @@ export * from "./components/sheet";
 export * from "./components/sidebar";
 export * from "./components/skeleton";
 export * from "./components/stat-card";
+export * from "./components/status-indicator";
 export * from "./components/switch";
 export * from "./components/table";
 export * from "./components/tabs";
