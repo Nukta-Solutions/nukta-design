@@ -7,7 +7,7 @@ export function Card({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card"
       className={cn(
-        "bg-surface text-surface-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        "bg-surface text-surface-foreground flex min-w-0 flex-col gap-6 rounded-xl border py-6 shadow-sm",
         className,
       )}
       {...props}
@@ -32,11 +32,12 @@ export function CardHeader({ className, ...props }: React.ComponentProps<"div">)
   );
 }
 
-export function CardTitle({ className, ...props }: React.ComponentProps<"h3">) {
+/** Renders an `h2`, the right level for cards placed under a page `h1`. */
+export function CardTitle({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     // Content arrives through `props.children`.
     // eslint-disable-next-line jsx-a11y/heading-has-content
-    <h3
+    <h2
       data-slot="card-title"
       className={cn("font-display text-lg leading-none font-semibold", className)}
       {...props}

@@ -1,5 +1,5 @@
+import { PageHeader } from "@nukta-solutions/ui";
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/page-header";
 import { SettingsForm } from "./settings-form";
 
 export const metadata: Metadata = { title: "Settings" };

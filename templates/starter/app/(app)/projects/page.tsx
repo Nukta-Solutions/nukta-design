@@ -1,5 +1,5 @@
+import { PageHeader } from "@nukta-solutions/ui";
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/page-header";
 import { projects } from "@/lib/data";
 import { NewProjectDialog } from "./new-project-dialog";
 import { ProjectsTable } from "./projects-table";
