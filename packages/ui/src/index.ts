@@ -17,6 +17,7 @@ export * from "./components/combobox";
 export * from "./components/command";
 export * from "./components/copy-button";
 export * from "./components/date-picker";
+export * from "./components/description-list";
 export * from "./components/dialog";
 export * from "./components/dropdown-menu";
 export * from "./components/empty-state";
