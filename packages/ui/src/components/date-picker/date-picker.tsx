@@ -65,10 +65,17 @@ function PickerTrigger({
 } & React.ComponentProps<"button">) {
   const field = useFieldContext();
   const valueId = useId();
-  const props = useFieldControlProps(rest);
-  const labelledBy =
-    props["aria-labelledby"] ??
-    (field && !props["aria-label"] ? `${field.labelId} ${valueId}` : undefined);
+  const labelTextId = useId();
+  // Buttons don't support aria-required; the label's indicator conveys it instead.
+  const {
+    "aria-required": _required,
+    "aria-label": ariaLabel,
+    ...props
+  } = useFieldControlProps(rest);
+  // The accessible name is the label followed by the visible value ("Due date 14 Oct 2026"),
+  // so speech-input users can say what they see.
+  const labelSource = props["aria-labelledby"] ?? (ariaLabel ? labelTextId : field?.labelId);
+  const labelledBy = labelSource ? `${labelSource} ${valueId}` : undefined;
 
   return (
     <PopoverTrigger asChild>
@@ -84,6 +91,11 @@ function PickerTrigger({
           className,
         )}
       >
+        {ariaLabel && (
+          <span id={labelTextId} className="sr-only">
+            {ariaLabel}
+          </span>
+        )}
         <CalendarIcon aria-hidden="true" className="text-muted-foreground" />
         <span id={valueId} className={cn("truncate", !text && "text-muted-foreground")}>
           {text ?? placeholder}

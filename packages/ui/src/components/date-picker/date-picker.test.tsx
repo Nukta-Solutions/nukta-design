@@ -15,8 +15,8 @@ describe("DatePicker", () => {
     render(
       <DatePicker aria-label="Due date" defaultValue={oct(14)} onValueChange={onValueChange} />,
     );
-    const trigger = screen.getByRole("button", { name: "Due date" });
-    expect(trigger).toHaveTextContent("14 Oct 2026");
+    const trigger = screen.getByRole("button", { name: /^Due date/ });
+    expect(trigger).toHaveAccessibleName("Due date 14 Oct 2026");
     expect(trigger).toHaveAttribute("aria-haspopup", "dialog");
 
     await user.click(trigger);
@@ -32,7 +32,7 @@ describe("DatePicker", () => {
   it("works with the keyboard and returns focus on Escape", async () => {
     const user = userEvent.setup();
     render(<DatePicker aria-label="Due date" defaultValue={oct(14)} />);
-    const trigger = screen.getByRole("button", { name: "Due date" });
+    const trigger = screen.getByRole("button", { name: /^Due date/ });
     trigger.focus();
     await user.keyboard("{Enter}");
     await user.keyboard("{ArrowRight}{Enter}");
@@ -55,7 +55,7 @@ describe("DatePicker", () => {
     }
     const user = userEvent.setup();
     render(<Controlled />);
-    const trigger = screen.getByRole("button", { name: "Start" });
+    const trigger = screen.getByRole("button", { name: /^Start/ });
     expect(trigger).toHaveTextContent("1 Oct 2026");
     await user.click(screen.getByRole("button", { name: "Reset" }));
     expect(trigger).toHaveTextContent("Pick a date");
@@ -63,14 +63,15 @@ describe("DatePicker", () => {
 
   it("is labelled by a Field with its value and shows invalid state", () => {
     render(
-      <Field invalid>
+      <Field invalid required>
         <FieldLabel>Invoice date</FieldLabel>
         <DatePicker defaultValue={oct(5)} />
         <FieldError>Choose a date in the past</FieldError>
       </Field>,
     );
-    const trigger = screen.getByRole("button", { name: "Invoice date 5 Oct 2026" });
+    const trigger = screen.getByRole("button", { name: /^Invoice date\s*5 Oct 2026$/ });
     expect(trigger).toHaveAttribute("aria-invalid", "true");
+    expect(trigger).not.toHaveAttribute("aria-required");
     expect(trigger).toHaveAccessibleDescription("Choose a date in the past");
   });
 
@@ -83,7 +84,7 @@ describe("DatePicker", () => {
         formatOptions={{ dateStyle: "long" }}
       />,
     );
-    expect(screen.getByRole("button", { name: "Date" })).toHaveTextContent(
+    expect(screen.getByRole("button", { name: /^Date/ })).toHaveTextContent(
       new Intl.DateTimeFormat("bn-BD", { dateStyle: "long" }).format(oct(14)),
     );
   });
@@ -93,11 +94,11 @@ describe("DatePicker", () => {
     const { rerender } = render(
       <DatePicker aria-label="Date" minDate={oct(10)} maxDate={oct(20)} defaultValue={oct(12)} />,
     );
-    await user.click(screen.getByRole("button", { name: "Date" }));
+    await user.click(screen.getByRole("button", { name: /^Date/ }));
     expect(screen.getByRole("button", { name: /^Friday, 9 October 2026/ })).toBeDisabled();
     await user.keyboard("{Escape}");
     rerender(<DatePicker aria-label="Date" disabled />);
-    expect(screen.getByRole("button", { name: "Date" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /^Date/ })).toBeDisabled();
   });
 });
 
@@ -113,7 +114,7 @@ describe("DateRangePicker", () => {
         numberOfMonths={1}
       />,
     );
-    const trigger = screen.getByRole("button", { name: "Period" });
+    const trigger = screen.getByRole("button", { name: /^Period/ });
     expect(trigger).toHaveTextContent(/1\s*[–-]\s*3 Oct 2026/);
     await user.click(trigger);
     await user.click(screen.getByRole("button", { name: /^Monday, 5 October 2026/ }));
@@ -141,7 +142,7 @@ describe("DateRangePicker", () => {
     }
     const user = userEvent.setup();
     render(<WithPresets />);
-    const trigger = screen.getByRole("button", { name: "Period" });
+    const trigger = screen.getByRole("button", { name: /^Period/ });
     await user.click(trigger);
     await user.click(screen.getByRole("button", { name: "Last 7 days" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -164,7 +165,7 @@ describe("DateRangePicker", () => {
         defaultValue={{ from: oct(2), to: oct(4) }}
       />,
     );
-    await user.click(screen.getByRole("button", { name: "Period" }));
+    await user.click(screen.getByRole("button", { name: /^Period/ }));
     expect(screen.getByRole("button", { name: "Custom" })).toHaveAttribute("aria-pressed", "true");
   });
 
@@ -200,10 +201,10 @@ describe("DateRangePicker", () => {
         customLabel="Pick dates"
       />,
     );
-    await user.click(screen.getByRole("button", { name: "Period" }));
+    await user.click(screen.getByRole("button", { name: /^Period/ }));
     expect(screen.getByRole("group", { name: "Presets" })).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Q3 2026" }));
-    expect(screen.getByRole("button", { name: "Period" })).toHaveTextContent(
+    expect(screen.getByRole("button", { name: /^Period/ })).toHaveTextContent(
       /1 Jul\s*[–-]\s*30 Sept? 2026/,
     );
   });

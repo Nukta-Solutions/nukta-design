@@ -68,8 +68,18 @@ export const FirstAndLastPage: Story = {
   args: { page: 1, totalPages: 8 },
   render: () => (
     <div className="grid gap-6">
-      <PagePagination page={1} totalPages={8} onPageChange={() => {}} />
-      <PagePagination page={8} totalPages={8} onPageChange={() => {}} />
+      <PagePagination
+        page={1}
+        totalPages={8}
+        onPageChange={() => {}}
+        labels={{ pagination: "Pagination, first page" }}
+      />
+      <PagePagination
+        page={8}
+        totalPages={8}
+        onPageChange={() => {}}
+        labels={{ pagination: "Pagination, last page" }}
+      />
     </div>
   ),
 };
