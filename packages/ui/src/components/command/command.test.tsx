@@ -113,3 +113,19 @@ describe("useKeyboardShortcut", () => {
     expect(mod).toHaveBeenCalledOnce();
   });
 });
+
+describe("CommandSeparator", () => {
+  it("is hidden from assistive tech so the listbox only contains options and groups", async () => {
+    const { CommandSeparator } = await import("./command");
+    render(
+      <Command label="Menu">
+        <CommandList>
+          <CommandItem>One</CommandItem>
+          <CommandSeparator alwaysRender />
+          <CommandItem>Two</CommandItem>
+        </CommandList>
+      </Command>,
+    );
+    expect(screen.queryByRole("separator")).not.toBeInTheDocument();
+  });
+});

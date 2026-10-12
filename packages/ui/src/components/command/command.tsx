@@ -1,4 +1,4 @@
-import { Command as CommandPrimitive } from "cmdk";
+import { Command as CommandPrimitive, useCommandState } from "cmdk";
 import { Search } from "lucide-react";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
@@ -84,13 +84,21 @@ export function CommandGroup({
   );
 }
 
+/**
+ * A divider between groups. Visual only: cmdk's own separator uses role="separator", which isn't
+ * allowed inside a listbox, so this renders a plain element. Hidden while searching, like cmdk's.
+ */
 export function CommandSeparator({
   className,
+  alwaysRender = false,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Separator>) {
+}: React.ComponentProps<"div"> & { alwaysRender?: boolean }) {
+  const searching = useCommandState((state) => state.search !== "");
+  if (searching && !alwaysRender) return null;
   return (
-    <CommandPrimitive.Separator
+    <div
       data-slot="command-separator"
+      role="none"
       className={cn("bg-border -mx-1 my-1 h-px", className)}
       {...props}
     />

@@ -150,6 +150,7 @@ export function Combobox(props: ComboboxProps) {
       </ComboboxTrigger>
       <PopoverContent
         align="start"
+        aria-label={typeof placeholder === "string" ? placeholder : "Options"}
         className={cn("w-(--radix-popover-trigger-width) min-w-56 p-0", contentClassName)}
       >
         <Command loop>

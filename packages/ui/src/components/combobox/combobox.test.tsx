@@ -28,6 +28,7 @@ describe("Combobox", () => {
 
     await user.click(trigger);
     expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("dialog", { name: "Choose a domain" })).toBeInTheDocument();
     await user.keyboard("company");
     expect(screen.getAllByRole("option")).toHaveLength(1);
     await user.keyboard("{Enter}");
