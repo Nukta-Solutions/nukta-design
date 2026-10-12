@@ -18,7 +18,7 @@ import {
 } from "./app-shell";
 
 const meta = {
-  title: "Components/App Shell",
+  title: "Deprecated/App Shell",
   component: AppShell,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof AppShell>;

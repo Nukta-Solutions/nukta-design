@@ -197,9 +197,15 @@ and approve pull requests"_. The workflow publishes with the built-in `GITHUB_TO
 | **Next.js** (`templates/starter`)            | Public sites, SEO, content, apps with their own server routes or auth                                   | `Nukta-Solutions/nukta-starter`       |
 | **React + Vite** (`templates/starter-react`) | Dashboards, admin panels and internal tools behind a login that talk to an API. Deploys as static files | `Nukta-Solutions/nukta-starter-react` |
 
-Both use the same shell from `@nukta-solutions/ui`: `AppShell`, `NavItem`, `AppShellMobileNav`
-and `PageHeader`. They have the same example pages, so products look the same whichever stack they
-use.
+Both use the same shell from `@nukta-solutions/ui`:
+
+- a collapsible `Sidebar` with the `ProductSwitcher`
+- a user menu in the sidebar footer
+- ⌘K search (`CommandDialog`)
+- `AppShellHeader` and `AppShellMain`
+
+They have the same example pages, so products look the same whichever stack they use. The Next.js
+starter reads the sidebar cookie on the server, so pages under `app/(app)` render dynamically.
 
 The templates live in this repo, so they always build against the current components. After each
 release, CI exports them to their template repos, replacing the `workspace:*` dependencies with
