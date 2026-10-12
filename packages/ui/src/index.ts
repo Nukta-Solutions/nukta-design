@@ -1,4 +1,5 @@
 export { cn } from "./lib/cn";
+export { useKeyboardShortcut, type KeyboardShortcutOptions } from "./lib/use-keyboard-shortcut";
 
 export * from "./components/accordion";
 export * from "./components/alert";
@@ -11,6 +12,7 @@ export * from "./components/calendar";
 export * from "./components/card";
 export * from "./components/checkbox";
 export * from "./components/collapsible";
+export * from "./components/command";
 export * from "./components/date-picker";
 export * from "./components/dialog";
 export * from "./components/dropdown-menu";
