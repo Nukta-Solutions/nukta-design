@@ -126,6 +126,10 @@ export const contrastPairs: ReadonlyArray<readonly [fg: SemanticColor, bg: Seman
   // Warning-colored text and icons (amber itself is too light on light surfaces).
   ["warning-emphasis", "background"],
   ["warning-emphasis", "surface"],
+  // Status-colored text (e.g. StatCard trends) on plain surfaces.
+  ["success", "background"],
+  ["success", "surface"],
+  ["info", "surface"],
 ];
 
 /** Non-text UI pairs (focus rings, input borders) that must meet WCAG 1.4.11 (3:1). */

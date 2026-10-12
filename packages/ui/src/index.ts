@@ -21,6 +21,7 @@ export * from "./components/radio-group";
 export * from "./components/select";
 export * from "./components/sheet";
 export * from "./components/skeleton";
+export * from "./components/stat-card";
 export * from "./components/switch";
 export * from "./components/table";
 export * from "./components/tabs";
