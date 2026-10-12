@@ -1,11 +1,13 @@
 import type * as React from "react";
 import { cn } from "../../lib/cn";
+import { useFieldControlProps } from "../../lib/field-context";
 import { fieldBase } from "../input/input";
 
 export type TextareaProps = React.ComponentProps<"textarea">;
 
 /** Multi-line text field that grows with its content where supported (`field-sizing: content`). */
-export function Textarea({ className, ...props }: TextareaProps) {
+export function Textarea({ className, ...rest }: TextareaProps) {
+  const props = useFieldControlProps(rest);
   return (
     <textarea
       data-slot="textarea"

@@ -1,11 +1,13 @@
 import { Switch as SwitchPrimitive } from "radix-ui";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
+import { useFieldControlProps } from "../../lib/field-context";
 
 export type SwitchProps = React.ComponentProps<typeof SwitchPrimitive.Root>;
 
 /** On/off toggle for settings that apply immediately. */
-export function Switch({ className, ...props }: SwitchProps) {
+export function Switch({ className, ...rest }: SwitchProps) {
+  const props = useFieldControlProps(rest);
   return (
     <SwitchPrimitive.Root
       data-slot="switch"

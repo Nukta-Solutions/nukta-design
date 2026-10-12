@@ -2,6 +2,7 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { Select as SelectPrimitive } from "radix-ui";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
+import { useFieldControlProps } from "../../lib/field-context";
 
 /** Popover-style select. Use for 5+ options; prefer RadioGroup for fewer. */
 export function Select(props: React.ComponentProps<typeof SelectPrimitive.Root>) {
@@ -20,7 +21,8 @@ export interface SelectTriggerProps extends React.ComponentProps<typeof SelectPr
   size?: "sm" | "md";
 }
 
-export function SelectTrigger({ className, size = "md", children, ...props }: SelectTriggerProps) {
+export function SelectTrigger({ className, size = "md", children, ...rest }: SelectTriggerProps) {
+  const props = useFieldControlProps(rest);
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
