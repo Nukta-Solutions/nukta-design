@@ -31,7 +31,8 @@ describe("DropdownMenu", () => {
     trigger.focus();
     await user.keyboard("{Enter}");
 
-    expect(screen.getByRole("menu")).toBeInTheDocument();
+    // Must layer above Dialog (--z-modal) so menus opened inside a dialog stay visible.
+    expect(screen.getByRole("menu")).toHaveClass("z-(--z-popover)");
     expect(screen.getAllByRole("menuitem")).toHaveLength(2);
 
     await user.click(screen.getByRole("menuitem", { name: "Rename" }));
