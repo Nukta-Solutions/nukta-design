@@ -10,7 +10,7 @@ const preview: Preview = {
     // Run axe on every story. Violations show in the Accessibility panel and fail test runs.
     a11y: { test: "error" },
     options: {
-      storySort: { order: ["Introduction", "Foundations", "Components"] },
+      storySort: { order: ["Introduction", "Foundations", "Components", "Patterns"] },
     },
   },
   decorators: [
