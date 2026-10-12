@@ -1,5 +1,6 @@
 export { cn } from "./lib/cn";
 export { useKeyboardShortcut, type KeyboardShortcutOptions } from "./lib/use-keyboard-shortcut";
+export { useIsMobile, useMediaQuery } from "./lib/use-media-query";
 
 export * from "./components/accordion";
 export * from "./components/alert";
@@ -29,6 +30,7 @@ export * from "./components/radio-group";
 export * from "./components/select";
 export * from "./components/separator";
 export * from "./components/sheet";
+export * from "./components/sidebar";
 export * from "./components/skeleton";
 export * from "./components/stat-card";
 export * from "./components/switch";
