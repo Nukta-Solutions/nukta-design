@@ -8,6 +8,7 @@ export * from "./components/button";
 export * from "./components/calendar";
 export * from "./components/card";
 export * from "./components/checkbox";
+export * from "./components/collapsible";
 export * from "./components/date-picker";
 export * from "./components/dialog";
 export * from "./components/dropdown-menu";
