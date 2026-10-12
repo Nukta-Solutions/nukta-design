@@ -33,7 +33,7 @@ export function Calendar({
   maxDate,
   disabled,
   weekStartsOn = DEFAULT_WEEK_STARTS_ON,
-  showOutsideDays = true,
+  showOutsideDays,
   startMonth,
   endMonth,
   formatters,
@@ -67,7 +67,8 @@ export function Calendar({
       data-slot="calendar"
       lang={locale}
       weekStartsOn={weekStartsOn}
-      showOutsideDays={showOutsideDays}
+      // Side-by-side months would repeat each other's edge days, so hide them by default there.
+      showOutsideDays={showOutsideDays ?? (props.numberOfMonths ?? 1) <= 1}
       startMonth={startMonth ?? minDate}
       endMonth={endMonth ?? maxDate}
       disabled={disabledMatchers}
@@ -165,6 +166,7 @@ export function CalendarDayButton({ day: _day, modifiers, className, ...props }:
         modifiers.today && "text-accent font-semibold",
         modifiers.range_middle && "text-secondary-foreground hover:bg-surface/40 rounded-none",
         filled && "bg-primary text-primary-foreground hover:bg-primary/90",
+        modifiers.outside && modifiers.selected && "text-muted-foreground bg-transparent",
         className,
       )}
       {...props}

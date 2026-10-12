@@ -126,3 +126,17 @@ describe("Calendar", () => {
     expect(dayButton(/^Tuesday, 13 October 2026, today/)).toBeInTheDocument();
   });
 });
+
+describe("Calendar outside days", () => {
+  it("shows outside days for one month and hides them for several", () => {
+    const { rerender } = render(<Calendar mode="single" defaultMonth={october} />);
+    // 1 Oct 2026 is a Thursday; with a Saturday week start, 26 Sep opens the grid.
+    expect(
+      screen.getByRole("button", { name: /^Saturday, 26 September 2026/ }),
+    ).toBeInTheDocument();
+    rerender(<Calendar mode="range" defaultMonth={october} numberOfMonths={2} />);
+    expect(
+      screen.queryByRole("button", { name: /^Saturday, 26 September 2026/ }),
+    ).not.toBeInTheDocument();
+  });
+});
