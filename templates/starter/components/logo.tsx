@@ -1,13 +1,8 @@
-/** Wordmark placeholder: replace with the product's own logo. Colors come from tokens. */
-export function Logo() {
+/** Brand mark shown in the product switcher tile. Replace with the product's own mark. */
+export function LogoMark() {
   return (
-    <span className="font-display text-foreground flex items-center gap-2 text-lg font-semibold">
-      <span className="bg-primary text-primary-foreground grid size-7 place-items-center rounded-md">
-        <span>
-          n<span className="text-highlight">.</span>
-        </span>
-      </span>
-      Nukta
+    <span className="font-display text-sm leading-none font-semibold">
+      n<span className="text-highlight">.</span>
     </span>
   );
 }

@@ -1,38 +1,34 @@
 import {
-  AppShell,
-  AppShellBody,
   AppShellHeader,
   AppShellMain,
-  AppShellMobileNav,
-  AppShellSidebar,
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
   SkipLink,
 } from "@nukta-solutions/ui";
 import { Outlet } from "react-router";
-import { AppNav } from "./app-nav";
+import { AppSidebar } from "./app-sidebar";
+import { SearchCommand } from "./search-command";
 import { ThemeToggle } from "./theme-toggle";
-import { UserMenu } from "./user-menu";
 
 export function AppLayout() {
   return (
-    <AppShell>
+    // The expanded/collapsed state is restored from a cookie; ⌘/Ctrl+B toggles it.
+    <SidebarProvider>
       <SkipLink />
-      <AppShellSidebar>
-        <AppNav />
-      </AppShellSidebar>
-      <AppShellBody>
+      <AppSidebar />
+      <SidebarInset>
         <AppShellHeader>
-          <AppShellMobileNav>
-            <AppNav />
-          </AppShellMobileNav>
+          <SidebarTrigger className="-ml-1" />
           <div className="ml-auto flex items-center gap-2">
+            <SearchCommand />
             <ThemeToggle />
-            <UserMenu />
           </div>
         </AppShellHeader>
         <AppShellMain>
           <Outlet />
         </AppShellMain>
-      </AppShellBody>
-    </AppShell>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
