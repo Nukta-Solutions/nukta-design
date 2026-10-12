@@ -47,14 +47,22 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   sync-starter:
-    name: Sync starter template repo
+    name: Sync ${{ matrix.template }} template repo
     needs: release
     if: needs.release.outputs.published == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - template: starter
+            repo: Nukta-Solutions/nukta-starter
+          - template: starter-react
+            repo: Nukta-Solutions/nukta-starter-react
     env:
-      # Fine-grained PAT with contents:write on Nukta-Solutions/nukta-starter.
+      # Fine-grained PAT with contents:write on both template repos.
       STARTER_REPO_TOKEN: ${{ secrets.STARTER_REPO_TOKEN }}
     steps:
       - uses: actions/checkout@v7
@@ -63,23 +71,23 @@ jobs:
 
       - name: Skip when no token is configured
         if: env.STARTER_REPO_TOKEN == ''
-        run: echo "::notice::STARTER_REPO_TOKEN is not set; skipping starter sync."
+        run: echo "::notice::STARTER_REPO_TOKEN is not set; skipping ${{ matrix.template }} sync."
 
       - uses: actions/checkout@v7
         if: env.STARTER_REPO_TOKEN != ''
         with:
-          repository: Nukta-Solutions/nukta-starter
+          repository: ${{ matrix.repo }}
           token: ${{ env.STARTER_REPO_TOKEN }}
-          path: nukta-starter
+          path: template-repo
 
       - name: Export and push
         if: env.STARTER_REPO_TOKEN != ''
         run: |
-          node scripts/export-starter.mjs nukta-starter
-          cd nukta-starter
+          node scripts/export-starter.mjs ${{ matrix.template }} template-repo
+          cd template-repo
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git diff --cached --quiet && exit 0
-          git commit -m "chore: sync starter from nukta-design@${GITHUB_SHA::7}"
+          git commit -m "chore: sync ${{ matrix.template }} from nukta-design@${GITHUB_SHA::7}"
           git push

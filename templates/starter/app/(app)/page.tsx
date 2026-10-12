@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  PageHeader,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +16,6 @@ import {
 } from "@nukta-solutions/ui";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { PageHeader } from "@/components/page-header";
 import { projects, stats, statusVariant } from "@/lib/data";
 
 export default function DashboardPage() {

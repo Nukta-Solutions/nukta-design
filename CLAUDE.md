@@ -16,8 +16,11 @@ Guidance for Claude Code sessions in this repo (Nukta UI, the Nukta Solutions de
   (`eslint/base|react|next.js`), the custom rule in `eslint/plugin.js` (tests in `test/`), Prettier.
 - `apps/docs`: Storybook 10 (react-vite). It loads component stories from `packages/ui/src`, and
   foundations pages from `apps/docs/stories`.
-- `templates/starter`: Next.js 16 App Router starter that depends on `workspace:*`.
-  `scripts/export-starter.mjs` exports it to the `Nukta-Solutions/nukta-starter` template repo.
+- `templates/starter`: Next.js 16 App Router starter. `templates/starter-react`: React + Vite
+  single-page starter (React Router data mode). Both depend on `workspace:*`, share the layout
+  shell from `@nukta-solutions/ui` (`AppShell`, `NavItem`, `AppShellMobileNav`, `PageHeader`) and
+  have the same example pages, so keep them in step. `scripts/export-starter.mjs <template> <dir>`
+  exports them to the `Nukta-Solutions/nukta-starter` and `nukta-starter-react` template repos.
 
 ## Non-negotiable conventions
 

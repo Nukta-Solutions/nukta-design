@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 /**
- * Copies templates/starter to <outDir> as a standalone project:
+ * Copies templates/<template> to <outDir> as a standalone project:
  * `workspace:*` dependencies are replaced with the current published versions.
  *
- *   node scripts/export-starter.mjs ../nukta-starter
+ *   node scripts/export-starter.mjs starter ../nukta-starter
+ *   node scripts/export-starter.mjs starter-react ../nukta-starter-react
  */
 import { cpSync, existsSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const outDir = process.argv[2];
-if (!outDir) {
-  console.error("Usage: node scripts/export-starter.mjs <outDir>");
+const [template, outDir] = process.argv.slice(2);
+if (!template || !outDir || !existsSync(join(root, "templates", template, "package.json"))) {
+  console.error("Usage: node scripts/export-starter.mjs <starter|starter-react> <outDir>");
   process.exit(1);
 }
 
@@ -23,9 +24,9 @@ const versions = Object.fromEntries(
   }),
 );
 
-const src = join(root, "templates/starter");
+const src = join(root, "templates", template);
 const dest = resolve(outDir);
-const skip = new Set(["node_modules", ".next", ".turbo", "next-env.d.ts"]);
+const skip = new Set(["node_modules", ".next", ".turbo", "dist", "next-env.d.ts"]);
 
 // Keep the destination's .git so the export can be committed to the template repo.
 if (existsSync(dest)) {
@@ -40,7 +41,7 @@ cpSync(src, dest, {
 
 const pkgPath = join(dest, "package.json");
 const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-pkg.name = "nukta-starter";
+pkg.name = `nukta-${template}`;
 for (const field of ["dependencies", "devDependencies"]) {
   for (const [name, range] of Object.entries(pkg[field] ?? {})) {
     if (!range.startsWith("workspace:")) continue;

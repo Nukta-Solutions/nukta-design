@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "@nukta-solutions/ui/styles.css";
+
+/* Let Tailwind find the classes used inside @nukta-solutions/ui components. */
+@source "../node_modules/@nukta-solutions/ui/dist";

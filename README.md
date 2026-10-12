@@ -190,26 +190,35 @@ and approve pull requests"_. The workflow publishes with the built-in `GITHUB_TO
 
 ---
 
-## Starting a new product from the template
+## Starting a new product from a template
 
-The starter lives in `templates/starter` so it always builds against the current components. After
-each release, CI exports it to a standalone template repo, **`Nukta-Solutions/nukta-starter`**,
-replacing the `workspace:*` dependencies with the released versions.
+| Template                                     | Use it for                                                                                              | Template repo                         |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| **Next.js** (`templates/starter`)            | Public sites, SEO, content, apps with their own server routes or auth                                   | `Nukta-Solutions/nukta-starter`       |
+| **React + Vite** (`templates/starter-react`) | Dashboards, admin panels and internal tools behind a login that talk to an API. Deploys as static files | `Nukta-Solutions/nukta-starter-react` |
 
-**To start a product:** on GitHub, open `Nukta-Solutions/nukta-starter` → **Use this template** →
-create the repo, then follow its README (`pnpm install && pnpm dev`).
+Both use the same shell from `@nukta-solutions/ui`: `AppShell`, `NavItem`, `AppShellMobileNav`
+and `PageHeader`. They have the same example pages, so products look the same whichever stack they
+use.
+
+The templates live in this repo, so they always build against the current components. After each
+release, CI exports them to their template repos, replacing the `workspace:*` dependencies with
+the released versions.
+
+**To start a product:** on GitHub, open the template repo → **Use this template** → create the
+repo, then follow its README.
 
 **One-time setup** for the sync:
 
-1. Create the empty repo `Nukta-Solutions/nukta-starter` and tick **Template repository** in its
-   settings.
-2. Create a fine-grained PAT with `contents: write` on that repo, and save it as the
+1. Create the template repos and tick **Template repository** in each one's settings.
+2. Create a fine-grained PAT with `contents: write` on both template repos, and save it as the
    `STARTER_REPO_TOKEN` secret in this repo. Without the secret, the sync step is skipped.
 
-**Manual export** (for example, before the first release):
+**Manual export** (for example, before the first sync):
 
 ```bash
-node scripts/export-starter.mjs ../nukta-starter
+node scripts/export-starter.mjs starter ../nukta-starter
+node scripts/export-starter.mjs starter-react ../nukta-starter-react
 ```
 
 ---
