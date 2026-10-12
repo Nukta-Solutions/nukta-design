@@ -15,6 +15,7 @@ export * from "./components/field";
 export * from "./components/input";
 export * from "./components/input-group";
 export * from "./components/label";
+export * from "./components/pagination";
 export * from "./components/popover";
 export * from "./components/radio-group";
 export * from "./components/select";
