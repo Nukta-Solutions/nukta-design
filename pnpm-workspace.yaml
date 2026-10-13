@@ -4,3 +4,6 @@ packages:
   - templates/*
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - "@tanstack/react-table@9.3.1"
+  - "@tanstack/table-core@9.3.1"

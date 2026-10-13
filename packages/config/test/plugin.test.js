@@ -19,6 +19,7 @@ tester.run("no-hardcoded-design-values", rules["no-hardcoded-design-values"], {
     `const a = <a href="#main-content">Skip</a>;`,
     `import x from "./#abc";`,
     "const c = `p-4 ${active ? 'bg-accent' : ''}`;",
+    `const c = "group-data-[collapsible=icon]/sidebar:hidden peer-data-[active=true]/menu-button:text-foreground";`,
   ],
   invalid: [
     { code: `const c = "#0282C9";`, errors: [{ messageId: "hardcodedColor" }] },
@@ -29,6 +30,8 @@ tester.run("no-hardcoded-design-values", rules["no-hardcoded-design-values"], {
     { code: `const c = "p-4 mt-[13px]";`, errors: [{ messageId: "arbitraryValue" }] },
     { code: `const c = "hover:w-[calc(100%-2rem)]";`, errors: [{ messageId: "arbitraryValue" }] },
     { code: `const c = "[mask-type:luminance]";`, errors: [{ messageId: "arbitraryValue" }] },
+    { code: `const c = "bg-[#123]/50";`, errors: [{ messageId: "hardcodedColor" }] },
+    { code: `const c = "w-[37px]/50 p-2";`, errors: [{ messageId: "arbitraryValue" }] },
     {
       code: `const el = <div className="text-[17px]" />;`,
       errors: [{ messageId: "arbitraryValue" }],

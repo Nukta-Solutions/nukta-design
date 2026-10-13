@@ -11,10 +11,19 @@
 
 const HEX_COLOR = /(?<![\w&/#])#(?:[0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{3,4})(?![\w-])/i;
 const COLOR_FN = /\b(?:rgba?|hsla?|oklch|oklab|lab|lch|hwb|color)\(/i;
+// What may follow an arbitrary *value*: end, space, "!", or an opacity modifier like "/50".
+// A variant is followed by ":" instead, including named groups/peers such as "/sidebar:".
+const VALUE_END = String.raw`(?=$|[\s!]|\/[\w.-]+(?=$|[\s!]))`;
 // A utility whose value is in brackets and is NOT followed by ":" (which would make it a variant).
-const ARBITRARY_VALUE = /(?:^|[\s:!])(-?[a-z][\w-]*-\[[^\]\s]+\])(?=$|[\s/!])/i;
+const ARBITRARY_VALUE = new RegExp(
+  String.raw`(?:^|[\s:!])(-?[a-z][\w-]*-\[[^\]\s]+\])` + VALUE_END,
+  "i",
+);
 // Arbitrary property, e.g. [mask-type:luminance] — not followed by ":".
-const ARBITRARY_PROPERTY = /(?:^|[\s:!])(\[[a-z-]+:[^\]\s]+\])(?=$|[\s/!])/i;
+const ARBITRARY_PROPERTY = new RegExp(
+  String.raw`(?:^|[\s:!])(\[[a-z-]+:[^\]\s]+\])` + VALUE_END,
+  "i",
+);
 
 function check(value) {
   if (HEX_COLOR.test(value) || COLOR_FN.test(value)) return "hardcodedColor";

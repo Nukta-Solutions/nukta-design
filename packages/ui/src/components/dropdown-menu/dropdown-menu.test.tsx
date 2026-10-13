@@ -40,3 +40,31 @@ describe("DropdownMenu", () => {
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
   });
 });
+
+describe("DropdownMenu modality", () => {
+  it("is non-modal by default: the page stays exposed and an outside click closes the menu", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <main>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">Actions</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Rename</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </main>
+        <button>Outside</button>
+      </>,
+    );
+    await user.click(screen.getByRole("button", { name: "Actions" }));
+    expect(screen.getByRole("menu")).toBeInTheDocument();
+    expect(screen.getByRole("main")).not.toHaveAttribute("aria-hidden");
+    const menu = screen.getByRole("menu");
+    expect(menu === document.activeElement || menu.contains(document.activeElement)).toBe(true);
+    await user.click(screen.getByRole("button", { name: "Outside" }));
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+  });
+});

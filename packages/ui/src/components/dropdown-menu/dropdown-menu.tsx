@@ -16,9 +16,16 @@ const contentBase = [
   "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
 ];
 
-/** Menu of actions opened from a trigger. Full keyboard navigation and typeahead built in. */
-export function DropdownMenu(props: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
-  return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
+/**
+ * Menu of actions opened from a trigger. Full keyboard navigation and typeahead built in.
+ * Non-modal by default: focus moves into the menu and Escape/outside clicks close it, but the rest
+ * of the page isn't hidden from assistive tech or scroll-locked. Pass `modal` to change that.
+ */
+export function DropdownMenu({
+  modal = false,
+  ...props
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
+  return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" modal={modal} {...props} />;
 }
 
 export function DropdownMenuTrigger(
