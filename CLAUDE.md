@@ -18,8 +18,9 @@ Guidance for Claude Code sessions in this repo (Nukta UI, the Nukta Solutions de
   foundations pages from `apps/docs/stories`.
 - `templates/starter`: Next.js 16 App Router starter. `templates/starter-react`: React + Vite
   single-page starter (React Router data mode). Both depend on `workspace:*`, share the layout
-  shell from `@nukta-solutions/ui` (`AppShell`, `NavItem`, `AppShellMobileNav`, `PageHeader`) and
-  have the same example pages, so keep them in step. `scripts/export-starter.mjs <template> <dir>`
+  from `@nukta-solutions/ui` (`SidebarProvider`, `Sidebar`, `ProductSwitcher`, `SidebarInset`,
+  `AppShellHeader`, `AppShellMain`, `PageHeader`, `CommandDialog`) and have the same components and
+  example pages, so keep them in step. The old `AppShell*` sidebar parts are deprecated. `scripts/export-starter.mjs <template> <dir>`
   exports them to the `Nukta-Solutions/nukta-starter` and `nukta-starter-react` template repos.
 
 ## Non-negotiable conventions
@@ -59,5 +60,8 @@ pnpm --filter @nukta-solutions/docs dev    # Storybook on :6006
   CSS, or component classes won't be generated.
 - jsdom shims for Radix (ResizeObserver, pointer capture, scrollIntoView, matchMedia) live in
   `packages/ui/vitest.setup.ts`.
+- In Next.js server components, don't import constants from `@nukta-solutions/ui` (it's a client
+  bundle, so exports arrive as client references). The starter spells out the sidebar cookie name.
+- `DropdownMenu` is non-modal by default. Radix modal menus trip axe's `aria-hidden-focus` rule.
 - Clash Display (ITF Free Font License) may only be used inside Nukta. Keep `@nukta-solutions/ui`
   private.

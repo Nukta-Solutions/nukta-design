@@ -32,6 +32,11 @@ export const semanticColorNames = [
   "info",
   "info-foreground",
   "overlay",
+  "chart-1",
+  "chart-2",
+  "chart-3",
+  "chart-4",
+  "chart-5",
 ] as const;
 
 export type SemanticColor = (typeof semanticColorNames)[number];
@@ -67,6 +72,12 @@ export const semanticColors: Record<ColorMode, SemanticColorMap> = {
     info: "blue.700",
     "info-foreground": "white.DEFAULT",
     overlay: "navy.950",
+    // Data series: distinct hues, each ≥ 3:1 against surfaces (WCAG 1.4.11).
+    "chart-1": "blue.600",
+    "chart-2": "amber.600",
+    "chart-3": "green.600",
+    "chart-4": "navy.700",
+    "chart-5": "red.500",
   },
   dark: {
     background: "neutral.950",
@@ -96,6 +107,11 @@ export const semanticColors: Record<ColorMode, SemanticColorMap> = {
     info: "blue.400",
     "info-foreground": "navy.950",
     overlay: "neutral.950",
+    "chart-1": "blue.400",
+    "chart-2": "amber.400",
+    "chart-3": "green.400",
+    "chart-4": "navy.300",
+    "chart-5": "red.400",
   },
 };
 
@@ -137,4 +153,11 @@ export const nonTextContrastPairs: ReadonlyArray<readonly [fg: SemanticColor, bg
   [
     ["ring", "background"],
     ["ring", "surface"],
+    ...(["chart-1", "chart-2", "chart-3", "chart-4", "chart-5"] as const).flatMap(
+      (series) =>
+        [
+          [series, "background"],
+          [series, "surface"],
+        ] as const,
+    ),
   ];

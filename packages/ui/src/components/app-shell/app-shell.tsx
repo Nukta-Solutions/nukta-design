@@ -6,19 +6,7 @@ import { cn } from "../../lib/cn";
 import { Button } from "../button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../sheet";
 
-/**
- * Application layout: a sidebar on desktop, a slide-in navigation sheet on mobile, a sticky
- * header and the main content area. Router-agnostic — pass your router's links via `NavItem asChild`.
- *
- * <AppShell>
- *   <SkipLink />
- *   <AppShellSidebar>…</AppShellSidebar>
- *   <AppShellBody>
- *     <AppShellHeader><AppShellMobileNav>…</AppShellMobileNav>…</AppShellHeader>
- *     <AppShellMain>…</AppShellMain>
- *   </AppShellBody>
- * </AppShell>
- */
+/** @deprecated Use `SidebarProvider` (it lays out the sidebar and the main column). */
 export function AppShell({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="app-shell" className={cn("flex min-h-dvh", className)} {...props} />;
 }
@@ -46,7 +34,7 @@ export function SkipLink({
   );
 }
 
-/** Desktop sidebar (hidden below the `md` breakpoint — use AppShellMobileNav there). */
+/** @deprecated Use `Sidebar` inside a `SidebarProvider`. */
 export function AppShellSidebar({ className, ...props }: React.ComponentProps<"aside">) {
   return (
     <aside
@@ -60,7 +48,7 @@ export function AppShellSidebar({ className, ...props }: React.ComponentProps<"a
   );
 }
 
-/** Top area of the sidebar, aligned with the header height. Put the product logo here. */
+/** @deprecated Use `SidebarHeader`. */
 export function AppShellSidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -71,6 +59,7 @@ export function AppShellSidebarHeader({ className, ...props }: React.ComponentPr
   );
 }
 
+/** @deprecated Use `SidebarInset`. */
 export function AppShellBody({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -113,10 +102,7 @@ export interface AppShellMobileNavProps {
   className?: string;
 }
 
-/**
- * Menu button (mobile only) that opens the navigation in a sheet from the left.
- * Closes automatically when a link inside it is followed.
- */
+/** @deprecated `Sidebar` becomes a sheet on mobile by itself; use `SidebarTrigger` to open it. */
 export function AppShellMobileNav({
   children,
   label = "Navigation",
@@ -151,6 +137,7 @@ export function AppShellMobileNav({
   );
 }
 
+/** @deprecated Use `SidebarMenu` inside a `SidebarGroup`. */
 export function NavList({
   className,
   "aria-label": ariaLabel = "Main",
@@ -173,7 +160,7 @@ export interface NavItemProps extends React.ComponentProps<"a"> {
   asChild?: boolean;
 }
 
-/** A sidebar link. `<NavItem asChild active={…}><Link to="/">…</Link></NavItem>` */
+/** @deprecated Use `SidebarMenuButton` (with `asChild` for router links). */
 export function NavItem({ className, active = false, asChild = false, ...props }: NavItemProps) {
   const Comp = asChild ? Slot.Root : "a";
   return (

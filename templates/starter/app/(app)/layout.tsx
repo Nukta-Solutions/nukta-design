@@ -1,35 +1,38 @@
 import {
-  AppShell,
-  AppShellBody,
   AppShellHeader,
   AppShellMain,
-  AppShellMobileNav,
-  AppShellSidebar,
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
   SkipLink,
 } from "@nukta-solutions/ui";
-import { AppNav } from "@/components/app-nav";
+import { cookies } from "next/headers";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SearchCommand } from "@/components/search-command";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { UserMenu } from "@/components/user-menu";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+// Same value as SIDEBAR_COOKIE_NAME from @nukta-solutions/ui. It's spelled out because exports
+// of a client bundle can't be read as plain values in a server component.
+const SIDEBAR_COOKIE = "nukta_sidebar_open";
+
+export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  // Read the saved state on the server so the sidebar renders collapsed/expanded without a flash.
+  const defaultOpen = (await cookies()).get(SIDEBAR_COOKIE)?.value !== "false";
+
   return (
-    <AppShell>
+    <SidebarProvider defaultOpen={defaultOpen}>
       <SkipLink />
-      <AppShellSidebar>
-        <AppNav />
-      </AppShellSidebar>
-      <AppShellBody>
+      <AppSidebar />
+      <SidebarInset>
         <AppShellHeader>
-          <AppShellMobileNav>
-            <AppNav />
-          </AppShellMobileNav>
+          <SidebarTrigger className="-ml-1" />
           <div className="ml-auto flex items-center gap-2">
+            <SearchCommand />
             <ThemeToggle />
-            <UserMenu />
           </div>
         </AppShellHeader>
         <AppShellMain>{children}</AppShellMain>
-      </AppShellBody>
-    </AppShell>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
