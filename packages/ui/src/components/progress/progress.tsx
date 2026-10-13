@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Progress as ProgressPrimitive } from "radix-ui";
+import { useId } from "react";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
 
@@ -87,6 +88,7 @@ export function UsageMeter({
   className,
   ...props
 }: UsageMeterProps) {
+  const labelId = useId();
   const format = formatValue ?? ((n: number) => new Intl.NumberFormat(locale).format(n));
   const labels = {
     warning: "Almost full",
@@ -118,7 +120,9 @@ export function UsageMeter({
       {...props}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm">
-        <span className="font-medium">{label}</span>
+        <span id={labelId} className="font-medium">
+          {label}
+        </span>
         <span className="text-muted-foreground tabular-nums">
           {amount}
           {limit != null && ` · ${percent}`}
@@ -139,7 +143,8 @@ export function UsageMeter({
           value={Math.min(used, limit)}
           max={limit}
           tone={level === "ok" ? "default" : level}
-          aria-label={typeof label === "string" ? label : undefined}
+          // Works for any label, including visually hidden ones in tables.
+          aria-labelledby={labelId}
           aria-valuetext={`${amount}, ${percent}${level !== "ok" ? `, ${labels[level]}` : ""}`}
         />
       )}

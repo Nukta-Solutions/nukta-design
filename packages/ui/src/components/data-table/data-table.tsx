@@ -31,7 +31,16 @@ import {
   type ColumnVisibilityState as VisibilityState,
   type RowData,
 } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown, Columns3, PlusCircle, Search, X } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  Check,
+  ChevronsUpDown,
+  Columns3,
+  PlusCircle,
+  Search,
+  X,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
@@ -592,12 +601,16 @@ function FacetedFilter<TData extends RowData>({
                       setSelected(next);
                     }}
                   >
-                    <Checkbox
-                      checked={isSelected}
-                      tabIndex={-1}
+                    {/* Visual only: a real checkbox inside an option would nest interactive controls. */}
+                    <span
                       aria-hidden="true"
-                      className="pointer-events-none"
-                    />
+                      className={cn(
+                        "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border",
+                        isSelected && "border-primary bg-primary text-primary-foreground",
+                      )}
+                    >
+                      {isSelected && <Check className="size-3.5 text-current" />}
+                    </span>
                     {option.icon}
                     <span>{option.label}</span>
                     {isSelected && <span className="sr-only">, selected</span>}

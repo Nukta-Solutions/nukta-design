@@ -55,3 +55,18 @@ describe("UsageMeter", () => {
     expect(screen.getByText("Limit reached")).toBeInTheDocument();
   });
 });
+
+describe("UsageMeter labelling", () => {
+  it("names the bar from any label, including visually hidden ones", () => {
+    render(
+      <UsageMeter
+        label={<span className="sr-only">Storage for hello@nukta.app</span>}
+        used={2}
+        limit={10}
+      />,
+    );
+    expect(
+      screen.getByRole("progressbar", { name: "Storage for hello@nukta.app" }),
+    ).toBeInTheDocument();
+  });
+});
