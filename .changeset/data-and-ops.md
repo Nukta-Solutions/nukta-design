@@ -8,7 +8,8 @@ Data and operations components:
   row selection with bulk actions, loading and empty states, pagination, and a manual server mode.
   Type columns with `createDataTableColumnHelper`.
 - `Chart` (Recharts): `ChartContainer`, `ChartTooltip(Content)` and `ChartLegend(Content)`, using
-  the new `chart-1`…`chart-5` tokens.
+  the new `chart-1`…`chart-5` tokens. `recharts` is an optional peer dependency: apps that use
+  charts run `pnpm add recharts react-is`.
 - `Progress` and `UsageMeter`: quota usage with warning and danger levels shown as text.
 - `CopyButton` and `CopyField`: copy to clipboard, with a masked secret mode.
 - `DescriptionList`, `StatusIndicator`, `Toggle` / `ToggleGroup` and `Stepper`.

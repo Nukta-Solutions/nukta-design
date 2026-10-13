@@ -44,6 +44,8 @@ pnpm add -D tailwindcss @tailwindcss/postcss @nukta-solutions/config
 ```
 
 `react`, `react-dom` (19) and `tailwindcss` (4) are peer dependencies.
+Using `Chart`? Also run `pnpm add recharts react-is`. recharts is an optional peer, so your charts and
+Nukta UI share one copy of it.
 
 ### 3. Global CSS
 
