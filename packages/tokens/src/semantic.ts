@@ -26,6 +26,7 @@ export const semanticColorNames = [
   "success-foreground",
   "warning",
   "warning-foreground",
+  "warning-emphasis",
   "danger",
   "danger-foreground",
   "info",
@@ -60,6 +61,7 @@ export const semanticColors: Record<ColorMode, SemanticColorMap> = {
     "success-foreground": "white.DEFAULT",
     warning: "amber.400",
     "warning-foreground": "navy.950",
+    "warning-emphasis": "amber.700",
     danger: "red.600",
     "danger-foreground": "white.DEFAULT",
     info: "blue.700",
@@ -88,6 +90,7 @@ export const semanticColors: Record<ColorMode, SemanticColorMap> = {
     "success-foreground": "neutral.950",
     warning: "amber.400",
     "warning-foreground": "navy.950",
+    "warning-emphasis": "amber.400",
     danger: "red.400",
     "danger-foreground": "neutral.950",
     info: "blue.400",
@@ -120,6 +123,13 @@ export const contrastPairs: ReadonlyArray<readonly [fg: SemanticColor, bg: Seman
   ["foreground", "muted"],
   ["accent", "background"],
   ["accent", "surface"],
+  // Warning-colored text and icons (amber itself is too light on light surfaces).
+  ["warning-emphasis", "background"],
+  ["warning-emphasis", "surface"],
+  // Status-colored text (e.g. StatCard trends) on plain surfaces.
+  ["success", "background"],
+  ["success", "surface"],
+  ["info", "surface"],
 ];
 
 /** Non-text UI pairs (focus rings, input borders) that must meet WCAG 1.4.11 (3:1). */

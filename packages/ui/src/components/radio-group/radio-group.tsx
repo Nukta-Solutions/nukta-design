@@ -1,17 +1,26 @@
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
+import { useFieldContext, useFieldControlProps } from "../../lib/field-context";
 
 export type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive.Root>;
 export type RadioGroupItemProps = React.ComponentProps<typeof RadioGroupPrimitive.Item>;
 
 /** A set of mutually exclusive options. Arrow keys move between items. */
-export function RadioGroup({ className, ...props }: RadioGroupProps) {
+export function RadioGroup({ className, ...rest }: RadioGroupProps) {
+  const field = useFieldContext();
+  // A radiogroup container is not labelable via htmlFor, so point aria-labelledby at the label.
+  const { id: _controlId, ...props } = useFieldControlProps({
+    ...rest,
+    "aria-labelledby":
+      rest["aria-labelledby"] ?? (field && !rest["aria-label"] ? field.labelId : undefined),
+  });
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"
       className={cn("grid gap-3", className)}
       {...props}
+      id={rest.id}
     />
   );
 }

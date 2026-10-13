@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
+import { useFieldControlProps } from "../../lib/field-context";
 
 /** Shared field styles, also used by Textarea and Select. */
 export const fieldBase = [
@@ -33,7 +34,8 @@ export interface InputProps
   extends Omit<React.ComponentProps<"input">, "size">, VariantProps<typeof inputVariants> {}
 
 /** Single-line text field. Pair with `<Label htmlFor>`; set `aria-invalid` to show an error. */
-export function Input({ className, size, type = "text", ...props }: InputProps) {
+export function Input({ className, size, type = "text", ...rest }: InputProps) {
+  const props = useFieldControlProps(rest);
   return (
     <input
       data-slot="input"

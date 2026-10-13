@@ -2,11 +2,13 @@ import { Check, Minus } from "lucide-react";
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import type * as React from "react";
 import { cn } from "../../lib/cn";
+import { useFieldControlProps } from "../../lib/field-context";
 
 export type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>;
 
 /** Checkbox supporting `checked`, `defaultChecked` and the `"indeterminate"` state. */
-export function Checkbox({ className, ...props }: CheckboxProps) {
+export function Checkbox({ className, ...rest }: CheckboxProps) {
+  const props = useFieldControlProps(rest);
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
