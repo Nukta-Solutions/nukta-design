@@ -8,6 +8,7 @@ import {
 } from "@nukta-solutions/ui";
 import { cookies } from "next/headers";
 import { AppSidebar } from "@/components/app-sidebar";
+import { NavUser } from "@/components/nav-user";
 import { SearchCommand } from "@/components/search-command";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -29,6 +30,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <div className="ml-auto flex items-center gap-2">
             <SearchCommand />
             <ThemeToggle />
+            <NavUser />
           </div>
         </AppShellHeader>
         <AppShellMain>{children}</AppShellMain>

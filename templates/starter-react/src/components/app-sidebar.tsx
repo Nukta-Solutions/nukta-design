@@ -2,7 +2,6 @@ import {
   ProductSwitcher,
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -14,7 +13,6 @@ import {
 import { Link, useLocation } from "react-router";
 import { products, siteConfig } from "@/lib/site";
 import { LogoMark } from "./logo";
-import { NavUser } from "./nav-user";
 
 export function AppSidebar() {
   const { pathname } = useLocation();
@@ -50,9 +48,6 @@ export function AppSidebar() {
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

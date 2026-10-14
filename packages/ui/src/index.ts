@@ -3,7 +3,9 @@ export { useKeyboardShortcut, type KeyboardShortcutOptions } from "./lib/use-key
 export { useIsMobile, useMediaQuery } from "./lib/use-media-query";
 
 export * from "./components/accordion";
+export * from "./components/account-menu";
 export * from "./components/alert";
+export * from "./components/app-launcher";
 export * from "./components/app-shell";
 export * from "./components/avatar";
 export * from "./components/badge";

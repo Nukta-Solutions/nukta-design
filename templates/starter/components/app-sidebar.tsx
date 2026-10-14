@@ -4,7 +4,6 @@ import {
   ProductSwitcher,
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -17,7 +16,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { products, siteConfig } from "@/lib/site";
 import { LogoMark } from "./logo";
-import { NavUser } from "./nav-user";
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -53,9 +51,6 @@ export function AppSidebar() {
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

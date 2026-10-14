@@ -7,6 +7,7 @@ import {
   Server,
   Settings,
   ShieldCheck,
+  UserRound,
   type LucideIcon,
 } from "lucide-react";
 
@@ -37,7 +38,10 @@ export const siteConfig = {
   ] satisfies { label: string; items: NavItem[] }[],
 };
 
-/** The Nukta ecosystem shown in the product switcher. Replace the hrefs with real app URLs. */
+/**
+ * The Nukta ecosystem shown in the product switcher and the app launcher. Replace the hrefs with
+ * real app URLs.
+ */
 export const products = [
   {
     id: "starter",
@@ -45,6 +49,13 @@ export const products = [
     description: "This app",
     href: "/",
     icon: LayoutDashboard,
+  },
+  {
+    id: "account",
+    name: "Nukta Account",
+    description: "Profile & security",
+    href: "https://myaccount.nukta.app",
+    icon: UserRound,
   },
   {
     id: "admin",

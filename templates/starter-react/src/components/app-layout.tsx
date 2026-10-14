@@ -8,6 +8,7 @@ import {
 } from "@nukta-solutions/ui";
 import { Outlet } from "react-router";
 import { AppSidebar } from "./app-sidebar";
+import { NavUser } from "./nav-user";
 import { SearchCommand } from "./search-command";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -23,6 +24,7 @@ export function AppLayout() {
           <div className="ml-auto flex items-center gap-2">
             <SearchCommand />
             <ThemeToggle />
+            <NavUser />
           </div>
         </AppShellHeader>
         <AppShellMain>
