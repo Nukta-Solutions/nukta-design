@@ -1,5 +1,13 @@
 # @nukta-solutions/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 4d2e349: Add `AppLauncher` (Google-style grid of links to every Nukta product) and `AccountMenu` (the
+  signed-in person's avatar with their name, email, a "Manage your Nukta account" link and sign out)
+  for the top-right corner of every Nukta app.
+
 ## 0.3.0
 
 ### Minor Changes
